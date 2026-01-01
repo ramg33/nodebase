@@ -38,7 +38,7 @@ export const workflowsRouter = createTRPCRouter({
   getOne: protectedProcedure
     .input(z.object({ id: z.string() }))
     .query(({ ctx, input }) => {
-      return prisma.workflow.findUnique({
+      return prisma.workflow.findUniqueOrThrow({
         where: {
           id: input.id,
           userId: ctx.auth.user.id,
@@ -88,11 +88,12 @@ export const workflowsRouter = createTRPCRouter({
       const totalPages = Math.ceil(totalCount / pageSize);
       const hasNextPage = page < totalPages;
       const hasPreviousPage = page > 1;
+
       return {
         items,
         page,
         pageSize,
-        totalPages,
+        totalCount,
         hasNextPage,
         hasPreviousPage,
       };
