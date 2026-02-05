@@ -8,10 +8,12 @@ import { useState } from "react";
 import { HttpRequestFormValues, HttpRequestDialog } from "./dialog";
 
 type HttpRequestNodeData = {
+  variableName?: string;
   endpoint?: string;
   method: "GET" | "POST" | "DELETE" | "PUT" | "PATCH";
   body?: string;
 };
+
 type HttpRequestNodeType = Node<HttpRequestNodeData>;
 
 export const HttpRequestNode = memo((props: NodeProps<HttpRequestNodeType>) => {
